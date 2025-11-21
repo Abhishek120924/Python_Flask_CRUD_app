@@ -42,15 +42,17 @@
             <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 shadow-2xl">
                 <h2 class="text-2xl font-semibold mb-6 text-white">Create New Task</h2>
                 <form method="post" class="space-y-5">
+                    <input type="text" name="title" placeholder="Task title..." required
+                           class="w-full px-5 py-4 rounded-xl bg-white bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-400">
                     <input type="text" name="description" placeholder="Task description..." required
                            class="w-full px-5 py-4 rounded-xl bg-white bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-400">
                     <div class="flex gap-4">
                         <input type="date" name="due_date" required
                                class="flex-1 px-5 py-4 rounded-xl bg-white bg-opacity-20 text-white focus:outline-none focus:ring-4 focus:ring-purple-400">
                         <select name="status" class="px-5 py-4 rounded-xl bg-white bg-opacity-20 text-white focus:outline-none focus:ring-4 focus:ring-purple-400">
-                            <option value="to do">To Do</option>
-                            <option value="in progress">In Progress</option>
-                            <option value="complete">Complete</option>
+                            <option value="to do" style="background:blue;">To Do</option>
+                            <option value="in progress" style="background:blue;">In Progress</option>
+                            <option value="complete" style="background:blue;">Complete</option>
                         </select>
                     </div>
                     <button class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 rounded-xl transition transform hover:scale-105">
@@ -81,6 +83,7 @@
                     <thead class="bg-white bg-opacity-5">
                         <tr class="text-purple-300 uppercase text-sm">
                             <th class="px-6 py-4">ID</th>
+                            <th class="px-6 py-4">Title</th>
                             <th class="px-6 py-4">Description</th>
                             <th class="px-6 py-4">Status</th>
                             <th class="px-6 py-4">Due Date</th>
@@ -92,6 +95,7 @@
                         {% for t in tasks %}
                         <tr class="hover:bg-white hover:bg-opacity-5 transition">
                             <td class="px-6 py-5 text-gray-300">{{ t.id }}</td>
+                            <td class="px-6 py-5 font-medium text-white max-w-md truncate">{{ t.title }}</td>
                             <td class="px-6 py-5 font-medium text-white max-w-md truncate">{{ t.description }}</td>
                             <td class="px-6 py-5">
                                 <span class="px-4 py-2 rounded-full text-sm font-medium

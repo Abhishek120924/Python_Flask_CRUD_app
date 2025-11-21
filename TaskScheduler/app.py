@@ -18,6 +18,7 @@ db = SQLAlchemy(app)
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.Text, nullable=False)
     description = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(20), nullable=False, default='to do')  # 'to do', 'in progress', 'complete'
     due_date = db.Column(db.Date, nullable=False)
@@ -26,11 +27,12 @@ class Task(db.Model):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
+        title = request.form['title'].strip()
         description = request.form['description'].strip()
         status = request.form['status']
         due_date = datetime.strptime(request.form['due_date'], '%Y-%m-%d').date()
 
-        task = Task(description=description, status=status, due_date=due_date)
+        task = Task(title=title, description=description, status=status, due_date=due_date)
         db.session.add(task)
         db.session.commit()
         flash('Task created')
@@ -53,11 +55,13 @@ def update(task_id):
     task = Task.query.get_or_404(task_id)
 
     if request.method == 'POST':
+        new_title = request.form['title']
         new_desc = request.form['description']
         new_status = request.form['status']
         new_due = datetime.strptime(request.form['due_date'], '%Y-%m-%d').date()
 
         if task.status != 'complete':
+            task.title = new_title
             task.description = new_desc
         task.status = new_status
         task.due_date = new_due
