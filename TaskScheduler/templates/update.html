@@ -1,0 +1,12 @@
+<h1>Update Task {{ task.id }}</h1>
+<form method="post">
+  <input type="text" name="description" value="{{ task.description }}" {% if task.status == 'complete' %}readonly{% endif %}>
+  <input type="date" name="due_date" value="{{ task.due_date.isoformat() }}" required>
+  <select name="status">
+    <option value="to do" {% if task.status == 'to do' %}selected{% endif %}>To Do</option>
+    <option value="in progress" {% if task.status == 'in progress' %}selected{% endif %}>In Progress</option>
+    <option value="complete" {% if task.status == 'complete' %}selected{% endif %}>Complete</option>
+  </select>
+  <button>Save</button>
+</form>
+<a href="/">Back</a>
